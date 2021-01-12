@@ -31,3 +31,6 @@ sudo usermod -a -G docker cloud_user
 minikube start
 
 minikube kubectl -- get pods -A
+
+export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services notejam)
+export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
