@@ -27,5 +27,6 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 sudo usermod -a -G docker cloud_user
 
 3. Start minikube
+
 minikube start
 minikube kubectl -- get pods -A
