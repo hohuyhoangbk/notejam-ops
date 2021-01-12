@@ -8,7 +8,7 @@ image:
   repository: hoanghh/notejam
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "pr-1-merge"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
