@@ -35,9 +35,13 @@ ansible-playbook install_nginx.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
 mkdir -p nginx; scp cloud_user@5daa09e5d31c.mylabserver.com:/etc/nginx/sites-available/default nginx
 
 
-###Install helm, init app, and push to git repo notejam-ops, branche master.
+###Install helm, init app
 
 ansible-playbook install_helm.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+
+ansible-playbook init_app.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+
+#push to git repo notejam-ops, branche master.
 
 mkdir -p ~/helm; cd ~/helm
 
