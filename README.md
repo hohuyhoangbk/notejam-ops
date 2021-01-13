@@ -4,6 +4,9 @@
 3. CI/CD tool will be Github Action.
 4. App repo will be hohuyhoangbk/notejam, ruby code, trigger CI/CD on pull request.
 5. Ops repo will be hohuyhoangbk/notejam-ops, trigger on commit.
+6. Configure the following secrets on the github repositories.
+   - CICD_SSH_KEY: private key to ssh minikube server
+   - DOCKER_USERNAME, DOCKER_PASSWORD: credentials to login and push image to docker hub.
 
 # Run the following command on the linux terminal (~/minikube directory) #
 
