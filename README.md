@@ -1,12 +1,13 @@
 # Prerequisites #
 1. A new instance (5daa09e5d31c.mylabserver.com) on the linux academy play ground (login and create a server manually).
 2. A linux terminal with ansible, helm and git. 
-3. Deploy ssh public key to login cloud_user remotely
 
-ansible-playbook deploy_authorized_keys.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user --ask-pass --ask-become-pass --tags "put pubkey"
 
 # Run the following command on the linux terminal (~/minikube directory) #
 
+#Deploy ssh public key to log in cloud_user remotely
+
+ansible-playbook deploy_authorized_keys.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user --ask-pass --ask-become-pass --tags "put pubkey"
 
 ###Install packages on minikube server
 
