@@ -23,7 +23,9 @@ ansible-playbook start_minikube.yml -l 5daa09e5d31c.mylabserver.com -u cloud_use
 ssh cloud_user@5daa09e5d31c.mylabserver.com 'kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}"' > IP
 
 #Install nginx and get the default configuration
+
 ansible-playbook install_nginx.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+
 mkdir -p nginx; scp cloud_user@5daa09e5d31c.mylabserver.com:/etc/nginx/sites-available/default nginx
 
 #Install helm, init app, and push to git repo notejam-ops, branche master.
