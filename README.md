@@ -73,3 +73,30 @@ git pull minikube main --allow-unrelated-histories
 
 git push minikube minikube/main:main
 
+# Update helm app notejam
+
+#Modify values.yml
+
+image:
+  repository: hoanghh/notejam
+....
+service:
+  type: ClusterIP
+  port: 3000
+
+#Modify templates/deployment.yaml
+ports:
+   - name: http
+     containerPort: 3000
+
+#Modify templates/service.yml
+ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      nodePort: 30080
+
+# Update nginx configure
+
+Add the following line under location "/":
+
+proxy_pass http://192.168.49.2:30080;
