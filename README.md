@@ -19,6 +19,7 @@ ansible-playbook install_minikube.yml -l 5daa09e5d31c.mylabserver.com -u cloud_u
 ansible-playbook start_minikube.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
 
 #Write down the local IP of minikube node
+
 ssh cloud_user@5daa09e5d31c.mylabserver.com 'kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}"' > IP
 
 #Install helm and init app
