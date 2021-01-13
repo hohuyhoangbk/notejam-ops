@@ -1,36 +1,24 @@
-# notejam-ops
-1. Install minikube on server 14c2a4b81d1c.mylabserver.com
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
-sudo dpkg -i minikube_latest_amd64.deb
+### Prerequisites ### 
+1. A new instance (5daa09e5d31c.mylabserver.com) on the linux academy play ground (login and create a server manually).
+2. A linux terminal with ansible, helm and git. 
 
-2. Install docker engine 
-sudo apt-get update
+### Run the following command on the linux terminal
+# Deploy ssh public key to login cloud_user remotely
+ansible-playbook deploy_authorized_keys.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user --ask-pass --ask-become-pass --tags "put pubkey"
+# Install minikube
+ansible-playbook install_docker.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+ansible-playbook install_kubectl.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+ansible-playbook install_minikube.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+ansible-playbook start_minikube.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+# Write down the local IP of minikube node
+ssh cloud_user@5daa09e5d31c.mylabserver.com 'kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}"' > IP
 
-sudo apt-get -y install \
-  apt-transport-https \
-  ca-certificates \
-  curl \
-  gnupg-agent \
-  software-properties-common
-
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
-sudo apt-get update
-
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-
-sudo usermod -a -G docker cloud_user
-
-3. Start minikube
-
-minikube start
-
-minikube kubectl -- get pods -A
-
-export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services notejam)
-export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
+### Install helm and init app
+ansible-playbook install_helm.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+helm create notejam
+cd notejam
+git init 
+git add .
+git remote add origin git@github.com:hohuyhoangbk/notejam-ops.git
+git commit 
+git push --set-upstream origin master
