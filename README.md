@@ -1,7 +1,7 @@
 # Prerequisites #
 1. A new instance (5daa09e5d31c.mylabserver.com) on the linux academy play ground (login and create a server manually).
 2. A linux terminal with ansible, helm and git. 
-
+3. CI/CD t will be Github Action.
 
 # Run the following command on the linux terminal (~/minikube directory) #
 
