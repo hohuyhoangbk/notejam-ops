@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: true
+  become_user: "root"
+  gather_facts: no
+  tasks:
+    - name: delete public key
+      file:
+        path: "/home/cloud_user/.ssh/authorized_keys"
+        state: absent
+      tags:
+        - delete public key
+    - name: make directory
+      file:
+        path: "/home/cloud_user/.ssh"
+        state: directory
+    - name: create empty file
+      file:
+        path: "/home/cloud_user/.ssh/authorized_keys"
+        state: touch
+    - name: put pubkey
+      lineinfile:
+        path: "/home/cloud_user/.ssh/authorized_keys"
+        line: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQxdR/vaDkn/dQSV+Y4NwcHPJuYh2S8UJabYGgFNg8AxwwiIwzoGfS3HZAcaDN90+NdyhDWkOgH63u3X+JpCl0I8fKz8RMENmIPj/rXoC7ryyI7wUJPZhGlwBFOqlVaH7HJP3+9HNqcS8aplKnJ8och7waiye5hOdZJQgB47n+UGhADOM2FUsDtWclWW5ZFvPnoneJG3rcJZWvwlWoUDSX/sF4pe1EAHzlcbehOCjDIHT0dUdZtRMpGgrQp111C0ZjZH3xkNBDcp20B/W8hXkwZAgaCWWOpSA3Th10RzxMokd/sZjzD3aqtSXZDmoQQ5NUHZhYFenkB9/aBzDYrTZJ ubuntu@ip-172-31-19-118
+      tags:
+        - put pubkey

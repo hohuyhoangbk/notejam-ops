@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Install nginx
+      apt: update_cache=yes name=nginx state=latest
+    - name: Amend nginx configuration file owner
+      shell: |
+        chown cloud_user /etc/nginx/sites-available/default
