@@ -2,7 +2,7 @@
 1. A new instance (5daa09e5d31c.mylabserver.com) on the linux academy play ground (login and create a server manually).
 2. A linux terminal with ansible, helm and git. 
 
-# Run the following command on the linux terminal #
+# Run the following command on the linux terminal (~/minikube directory) #
 
 ###Deploy ssh public key to login cloud_user remotely
 
@@ -32,6 +32,8 @@ mkdir -p nginx; scp cloud_user@5daa09e5d31c.mylabserver.com:/etc/nginx/sites-ava
 
 ansible-playbook install_helm.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
 
+mkdir -p ~/helm; cd ~/helm
+
 helm create notejam
 
 cd notejam
@@ -48,6 +50,17 @@ git push --set-upstream origin master
 
 #Push all ansible scripts and nginx configure to repo, branch main.
 
+cd ~/minikube
+
+git remote add minikube git@github.com:hohuyhoangbk/notejam-ops.git
+
+git fetch minikube  main
+
+git checkout -b minikube/main
+
+git pull minikube main --allow-unrelated-histories
+
+git push minikube minikube/main:main
 
 
 
