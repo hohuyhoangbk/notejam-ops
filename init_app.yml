@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - name: Init notejam app 
+      shell: |
+        helm create notejam
+        helm install notejam ./notejam
