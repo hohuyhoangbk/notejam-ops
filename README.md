@@ -114,3 +114,5 @@ Add the following line under location "/":
 proxy_pass http://192.168.49.2:30080;
 
 # Visit the website: http://5daa09e5d31c.mylabserver.com
+
+Since I have deployed the app on the test server that will automatically stop after idle time, therefore please ping me via email hohuyhoangbk@gmail.com if you can not access the webpage. Thanks. 
