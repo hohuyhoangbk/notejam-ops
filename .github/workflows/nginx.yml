@@ -34,4 +34,6 @@ jobs:
           rm -r /home/cloud_user/notejam-ops
           git clone --branch main https://github.com/hohuyhoangbk/notejam-ops.git
           cp notejam-ops/nginx/default /etc/nginx/sites-available/
+          sudo nginx -t
+          sudo nginx -s reload
           #helm upgrade notejam ./notejam-ops --set service.type=NodePort
