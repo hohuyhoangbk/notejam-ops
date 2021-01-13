@@ -1,7 +1,9 @@
 # Prerequisites #
 1. A new instance (5daa09e5d31c.mylabserver.com) on the linux academy play ground (login and create a server manually).
 2. A linux terminal with ansible, helm and git. 
-3. CI/CD t will be Github Action.
+3. CI/CD tool will be Github Action.
+4. App repo will be hohuyhoangbk/notejam, ruby code, trigger CI/CD on pull request.
+5. Ops repo will be hohuyhoangbk/notejam-ops, trigger on commit.
 
 # Run the following command on the linux terminal (~/minikube directory) #
 
@@ -63,6 +65,4 @@ git checkout -b minikube/main
 git pull minikube main --allow-unrelated-histories
 
 git push minikube minikube/main:main
-
-
 
