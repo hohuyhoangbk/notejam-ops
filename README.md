@@ -4,6 +4,9 @@
 3. CI/CD tool will be Github Action.
 4. App repo will be hohuyhoangbk/notejam, ruby code, trigger CI/CD on pull request.
 5. Ops repo will be hohuyhoangbk/notejam-ops, trigger on commit.
+6. Configure the following secrets on the github repositories.
+   - CICD_SSH_KEY: private key to ssh minikube server
+   - DOCKER_USERNAME, DOCKER_PASSWORD: credentials to login and push image to docker hub.
 
 # Run the following command on the linux terminal (~/minikube directory) #
 
@@ -32,9 +35,13 @@ ansible-playbook install_nginx.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
 mkdir -p nginx; scp cloud_user@5daa09e5d31c.mylabserver.com:/etc/nginx/sites-available/default nginx
 
 
-###Install helm, init app, and push to git repo notejam-ops, branche master.
+###Install helm, init app
 
 ansible-playbook install_helm.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+
+ansible-playbook init_app.yml -l 5daa09e5d31c.mylabserver.com -u cloud_user
+
+#push to git repo notejam-ops, branche master.
 
 mkdir -p ~/helm; cd ~/helm
 
@@ -66,3 +73,44 @@ git pull minikube main --allow-unrelated-histories
 
 git push minikube minikube/main:main
 
+# Update helm app notejam
+
+#Modify values.yml
+
+image:
+
+  repository: hoanghh/notejam
+  
+....
+
+service:
+
+  type: ClusterIP
+  
+  port: 3000
+
+#Modify templates/deployment.yaml
+
+ports:
+
+   - name: http
+   
+     containerPort: 3000
+
+#Modify templates/service.yml
+
+ports:
+
+    - port: {{ .Values.service.port }}
+    
+      targetPort: http
+      
+      nodePort: 30080
+
+# Update nginx configure
+
+Add the following line under location "/":
+
+proxy_pass http://192.168.49.2:30080;
+
+# Visit the website: http://5daa09e5d31c.mylabserver.com
