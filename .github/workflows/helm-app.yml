@@ -1,0 +1,30 @@
+name: helm-app
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    # Deploy to minikube server
+    - name: Execute ssh command via using private key
+      uses: appleboy/ssh-action@master
+      with:
+        #host: ${{ secrets.REMOTE_HOST }}
+        host: 5daa09e5d31c.mylabserver.com
+        username: cloud_user   
+        #username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.CICD_SSH_KEY }}
+        #port: ${{ secrets.PORT }}
+        script: |
+          rm -r /home/cloud_user/notejam-ops
+          git clone --branch master https://github.com/hohuyhoangbk/notejam-ops.git
+          #cp notejam-ops/nginx/default /etc/nginx/sites-available/
+          helm upgrade notejam ./notejam-ops --set service.type=NodePort
