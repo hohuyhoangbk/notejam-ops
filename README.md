@@ -1,8 +1,8 @@
-### Prerequisites ### 
+# Prerequisites #
 1. A new instance (5daa09e5d31c.mylabserver.com) on the linux academy play ground (login and create a server manually).
 2. A linux terminal with ansible, helm and git. 
 
-# Run the following command on the linux terminal
+### Run the following command on the linux terminal ###
 
 #Deploy ssh public key to login cloud_user remotely
 
